@@ -1,0 +1,1027 @@
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-1">
+        <img src="<?= base_url('assets/') ?>img/profile/logoipb.png" alt="Logo" class="img-profile rounded-circle" width="50" height="50">
+        </div>
+        <div class="sidebar-brand-text mx-3">DitSDM</div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+    <!-- Heading -->
+    <div class="sidebar-heading">
+               Admin
+                </div>
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item">
+        <a class="nav-link" href="index.html">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        User 
+    </div>
+
+     <!-- Nav Item - Charts -->
+     <li class="nav-item">
+        <a class="nav-link" href="charts.html">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Profil</span></a>
+    </li>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <!-- <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+            aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Ringkasan</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Ringkasan Pegawai</h6>
+                <a class="collapse-item" href="buttons.html">Pegawai Baru </a>
+                <a class="collapse-item" href="cards.html">Pegawai Pengganti</a>
+            </div>
+        </div>
+    </li> -->
+
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+</ul>
+<!-- End of Sidebar -->
+
+  
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        User 
+    </div>
+
+     <!-- Nav Item - Charts -->
+     <li class="nav-item">
+        <a class="nav-link" href="charts.html">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Profil</span></a>
+    </li>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+
+        <!-- <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+            aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Ringkasan</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Ringkasan Pegawai</h6>
+                <a class="collapse-item" href="buttons.html">Pegawai Baru </a>
+                <a class="collapse-item" href="cards.html">Pegawai Pengganti</a>
+            </div>
+        </div>
+    </li> -->
+ 
+
+ --------------------------
+
+      $this->form_validation->set_rules('name', 'Name', 'required|trim');
+        $this->form_validation->set_rules('status', 'Status', 'required|trim');
+        $this->form_validation->set_rules('posisi', 'Posisi', 'required|trim');
+        $this->form_validation->set_rules('unit', 'Unit', 'required|trim');
+ 
+    } else {
+        $name = $this->input->post('name');
+        $email = $this->input->post('email');
+        $status = $this->input->post('status');
+        $posisi = $this->input->post('posisi');
+        $unit = $this->input->post('unit');
+
+        $this->db->set('name', $name);
+        $this->db->set('status', $status);
+        $this->db->set('posisi', $posisi);
+        $this->db->set('unit', $unit);
+        
+        $this->db->where('email', $email);
+        $this->db->update('user');
+
+-------------------------------
+
+ private function _sendEmail()
+    {
+        $config = [
+            'protocol'  => 'smtp',
+            'smtp_host' => 'ssl://smtp.googlemail.com', 
+            'smtp_user' => 'hanahusna227@gmail.com',
+            'smtp_pass' => '1234567890',
+            'smtp_port' => 465,
+            'mailtype'  => 'html',
+            'charset'   => 'utf-8',
+            'newline'   => "\r\n"
+        ];
+
+        $this->load->library('email',$config);
+
+        $this->email->from('hanahusna227@gmail.com', 'Direktorat Sumber Daya Manusia');
+        $this->email->to('hana19husna@apps.ipb.ac.id');
+        $this->email->subject('Testing');
+        $this->email->message('Hello World!');
+
+        if ($this->email->send()) {
+            return true;
+        } else {
+            echo $this->email->print_debugger();
+            die;
+        
+        }
+    }
+
+    ---------------------
+
+     function send_mail(){
+        $config['protocol'] = 'smtp';
+        $config['smtp_host'] = 'ssl://smtp.googlemail.com';
+        $config['smtp_port'] = 25;
+        $config['smtp_user'] = 'hanahusna227@gmail.com';
+        $config['smtp_pass'] = '123456780';
+        
+        $this->load->library('email', $config);
+        $this->email->set_newline("\r\n");
+        
+        $this->email->from('hanahusna227@gmail.com', 'Dit SDM');
+        $this->email->to('atifsyaban69@gmail.com');
+        $this->email->subject('This is an email test');
+        $this->email->message('It is working. Great!');
+        
+        if($this->email->send())
+        {
+            echo 'Your email was sent, successfully.';
+        }
+        
+        else
+        {
+            show_error($this->email->print_debugger());
+    }
+}
+----------------
+[sendmail]
+
+smtp_server=smtp.gmail.com
+smtp_port=587
+error_logfile=error.log
+debug_logifile=debug.log
+auth_username=my-gmail-id@gmail.com
+auth_password=my-gmail-password
+force_sender=my-gmail-id@gmail.com
+
+
+----------------------
+
+ private function _sendEmail()
+        {
+            $config = [
+                'protocol'  => 'smtp',
+                'smtp_host' => 'ssl://smtp.googlemail.com', 
+                'smtp_user' => 'hanahusna227@gmail.com',
+                'smtp_pass' => '1234567890',
+                'smtp_port' => 465,
+                'mailtype'  => 'html',
+                'charset'   => 'utf-8',
+                'newline'   => "\r\n"
+            ];
+
+            $this->load->library('email',$config);
+
+            $this->email->from('hanahusna227@gmail.com', 'Direktorat Sumber Daya Manusia');
+            $this->email->to('hana19husna@apps.ipb.ac.id');
+            $this->email->subject('Testing');
+            $this->email->message('Hello World!');
+
+            if ($this->email->send()) {
+                return true;
+            } else {
+                echo $this->email->print_debugger();
+                die;
+            
+            }
+        }
+
+
+---------------------------------
+
+ private function _sendEmail()
+        {
+            $config= Array(
+                'protocol'  =>'smpt',
+                'smtp_host' => 'ssl://smtp.googlemail.com',
+                'smtp_port' => '587',
+                'smtp_user'=>  'hanahusna227@gmail.co',
+                'smtp_pass' =>'1234567890'
+                );
+    
+            $this->load->library('email', $config);
+            $this->email->set_newline("\r\n");
+            $this->email->from('hanahusna227@gmail.com','DITSDM');
+            $this->email->to('atifsyaban69@gmail.com');
+            $this->email->subject('this is email with subject');
+            $this->email->message('it s working properly');
+
+            if($this->email->send())
+            {
+            echo "your email send";
+        }
+        else
+        {
+            show_error($this->email->print_debugger());
+        }
+    }
+
+    --------------------
+
+    $this->load->library('email');
+
+        $config = array();
+        $config['protocol'] = 'smtp';
+        $config['smtp_host'] = 'ssl://smtp.googlemail.com';
+        $config['smtp_user'] = 'yourmail@gmail.com';
+        $config['smtp_pass'] = 'yourpass';
+        $config['smtp_port'] = 465;
+        $config['mailtype'] = 'html';
+        $config['charset'] = 'utf-8';
+        $this->email->initialize($config);
+
+        $this->email->set_newline("\r\n");
+
+-------------------
+
+
+            $config = array();
+            $config['protocol'] = 'smtp';
+            $config['smtp_host'] = 'ssl://smtp.googlemail.com';
+            $config['smtp_user'] = 'hanahusna227@gmail.com';
+            $config['smtp_pass'] = '12345';
+            $config['smtp_port'] = 465;
+            $config['mailtype'] = 'html';
+            $config['charset'] = 'utf-8';
+
+            $this->load->library('email');
+            $this->email->initialize($config);
+
+            $this->email->set_newline("\r\n");
+
+            --------------------------
+            
+            private function _sendEmail()
+            {
+                $config = array();
+                $config['protocol'] = 'smtp';
+                $config['smtp_host'] = 'ssl://smtp.googlemail.com';
+                $config['smtp_user'] = 'hanahusna227@gmail.com';
+                $config['smtp_pass'] = '12345';
+                $config['smtp_port'] = 465;
+                $config['mailtype'] = 'html';
+                $config['charset'] = 'utf-8';
+    
+                $this->load->library('email',$config);
+                $this->email->initialize($config);
+    
+                $this->email->set_newline("\r\n");
+
+
+                $this->email->from('hanahusna227@gmail.com', 'Direktorat Sumber Daya Manusia');
+                $this->email->to('atifsyaban69@gmail.com');
+                $this->email->subject('Testing');
+                $this->email->message('Hello World!');
+
+                if ($this->email->send()) {
+                    return true;
+                } else {
+                    echo $this->email->print_debugger();
+                    die;
+                
+                }
+            }
+
+
+
+            -----------------------------
+
+                       <?php 
+                                if (isset($_POST['sendmail'])) {
+                                    if(mail($_POST['email'], $_POST['name'],$_POST['password'])) {
+                                        echo "mail send";
+                                } else {
+                                    echo "failed";
+                                }
+                             }
+                        ?>
+
+
+                        ------------------
+
+                        
+        //token
+        $token = base64_encode(random_bytes(32));
+        $user_token = [
+            'email' => $email,
+            'token' => $token,
+            'date_created' => time()
+        ];
+
+        $this->db->insert('user', $data);
+        $this->db->insert('user_token', $user_token);
+
+        $this->_sendEmail($token, 'verify');
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+        Selamat akun anda sudah terdaftar! Silahkan Untuk Login </div>');
+
+        redirect('auth'); 
+
+    }
+    
+}
+            private function _sendEmail($token, $type)
+            {
+                $config = [
+                    'protocol'  => 'smtp',
+                    'smtp_host' => 'ssl://smtp.googlemail.com', 
+                    'smtp_user' => 'inihanaok@gmail.com',
+                    'smtp_pass' => 'jbdjfmdk2873',
+                    'smtp_port' => 465,
+                    'mailtype'  => 'html',
+                    'charset'   => 'utf-8',
+                    'newline'   => "\r\n"
+                ];
+
+                $this->load->library('email', $config);
+                $this->email->initialize($config);
+
+                $this->email->from('inihanaok@gmail.com', 'Direktorat Sumber Daya Manusia');
+                $this->email->to($this->input->post('email'));
+            if ($type == 'verify') {
+                $this->email->subject('Akun Verifikasi');
+                $this->email->message('Klik link dibawah ini untuk verifikasi akunmu! <a href="' . base_url() . 'auth/verify?email=' . $this->input->post('email') . '&token='. $token . '">Aktifkan</a>');
+            }
+                if ($this->email->send()) {
+                    return true;
+                } else {
+                    echo $this->email->print_debugger();
+                    die;
+                
+                }
+            }
+
+-------------------------
+
+  $token = base64_encode(random_bytes(32));
+        $user_token = [
+            'email' => $email,
+            'token' => $token,
+            'date_created' => time()
+        ];
+
+        $this->db->insert('user', $data);
+        $this->db->insert('user_token', $user_token);
+
+        $this->_sendEmail($token, 'verify');
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+        Selamat akun anda sudah terdaftar! Silahkan Untuk Login </div>');
+
+        redirect('auth'); 
+
+    }
+    
+}
+            private function _sendEmail($token, $type)
+            {
+                $config = [
+                    'protocol'  => 'smtp',
+                    'smtp_host' => 'ssl://smtp.googlemail.com', 
+                    'smtp_user' => 'inihanaok@gmail.com',
+                    'smtp_pass' => 'jbdjfmdk2873',
+                    'smtp_port' => 465,
+                    'mailtype'  => 'html',
+                    'charset'   => 'utf-8',
+                    'newline'   => "\r\n"
+                ];
+
+                $this->load->library('email', $config);
+                $this->email->initialize($config);
+
+                $this->email->from('inihanaok@gmail.com', 'Direktorat Sumber Daya Manusia');
+                $this->email->to($this->input->post('email'));
+            if ($type == 'verify') {
+                $this->email->subject('Akun Verifikasi');
+                $this->email->message('Klik link dibawah ini untuk verifikasi akunmu! <a href="' . base_url() . 'auth/verify?email=' . $this->input->post('email') . '&token='. $token . '">Aktifkan</a>');
+            }
+                if ($this->email->send()) {
+                    return true;
+                } else {
+                    echo $this->email->print_debugger();
+                    die;
+                
+                }
+            }
+
+-------------
+               <?php 
+                                    include "koneksi/koneksi.php";
+                                    $no = 1; 
+                                    $ambildata = mysqli_query($koneksi, "SELECT * FROM user, pengajuan_ganti
+                                    WHERE user.name = pengajuan_ganti.id") or die (mysqli_error($koneksi));
+
+                                    while($gn = mysqli_fetch_array($ambildata)){
+                                        echo "
+                                    <tr >
+                                            <td>$gn[id]</td>
+                                            <td>$gn[tanggal_pengajuan]</td>
+                                            <td>$gn[periode_awal]</td>
+                                            <td>$gn[periode_akhir]</td>
+                                            <td>$gn[deskripsi]</td>
+                                            <td>$gn[name]</td>
+                                            <td>$gn[posisi_pegawai]</td>
+                                            <td>$gn[status_pegawai]</td>
+                                            <td>$gn[unit]</td>
+                        
+                                    </tr>";
+                                    $no++;
+                                }
+                                 
+                                    ?>
+
+                                    ---------------\
+
+
+                                     <div class="form-group">
+                    <div class="month">
+                        <label for="january">Januari</label>
+                        <input type="number" id="january" name="january" placeholder="Isi data Januari">
+                    </div>
+                    <div class="month">
+                        <label for="february">Februari</label>
+                        <input type="number" id="february" name="february" placeholder="Isi data Februari">
+                    </div>
+                    <div class="month">
+                        <label for="march">Maret</label>
+                        <input type="number" id="march" name="march" placeholder="Isi data Maret">
+                    </div>
+                    <div class="month">
+                        <label for="april">April</label>
+                        <input type="number" id="april" name="april" placeholder="Isi data April">
+                    </div>
+                    <div class="month">
+                        <label for="may">Mei</label>
+                        <input type="number" id="may" name="may" placeholder="Isi data Mei">
+                    </div>
+                    <div class="month">
+                        <label for="june">Juni</label>
+                        <input type="number" id="june" name="june" placeholder="Isi data Juni">
+                    </div>
+                    <div class="month">
+                        <label for="july">Juli</label>
+                        <input type="number" id="july" name="july" placeholder="Isi data Juli">
+                    </div>
+                    <div class="month">
+                        <label for="august">Agustus</label>
+                        <input type="number" id="august" name="august" placeholder="Isi data Agustus">
+                    </div>
+                    <div class="month">
+                        <label for="september">September</label>
+                        <input type="number" id="september" name="september" placeholder="Isi data September">
+                    </div>
+                    <div class="month">
+                        <label for="october">Oktober</label>
+                        <input type="number" id="october" name="october" placeholder="Isi data Oktober">
+                    </div>
+                    <div class="month">
+                        <label for="november">November</label>
+                        <input type="number" id="november" name="november" placeholder="Isi data November">
+                    </div>
+                    <div class="month">
+                        <label for="december">Desember</label>
+                        <input type="number" id="december" name="december" placeholder="Isi data Desember">
+                    </div>
+                </div>
+
+
+
+                -----------------
+
+                    <table class="table-responsive">
+              <style>
+
+              th, td {
+                border: 1px solid #ddd;
+                padding: 8px;
+              }
+
+              th {
+                background-color: #f2f2f2;
+              }
+              </style>
+               <table class="table table-hover datatable" id="tabelData" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Posisi Pegawai</th>
+                      <th>Status Pegawai</th>
+                       <!-- Kolom Bulan -->
+                      <th>Jan</th>
+                      <th>Feb</th>
+                      <th>Mar</th>
+                      <th>Apr</th>
+                      <th>Mei</th>
+                      <th>Juni</th>
+                      <th>Juli</th>
+                      <th>Ags</th>
+                      <th>Sep</th>
+                      <th>Okt</th>
+                      <th>Nov</th>
+                      <th>Des</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody> </tbody>
+               </table>
+               </table>
+
+
+
+               -------------------------------------------------------------------------------
+
+               
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
+                    <form action="<?php echo base_url('Perencanaan/tambahngelola'); ?>" method="POST" class="form-group">
+                <div class="form-group">
+                  <label for="tanggal_pengajuan">Tanggal Pengajuan</label>
+                  <div class="col-sm-6">
+                  <input type="date" name="tanggal_pengajuan" class="form-control">
+                </div>
+                </div>
+                <div class="form-group">
+                  <label for="periode">Periode</label>
+                  <div class="col-sm-6">
+                  <input type="date" name="periode" class="form-control">
+                </div>
+                </div>
+                <div class="form-group">
+                  <label for="posisi_pegawai" class="form-label">Posisi Pegawai</label>
+                  <div class="col-sm-6">
+                  <select name="posisi_pegawai" id="posisi_pegawai" class="form-control">
+                <option value="">Pilih Posisi</option>
+                <option value="Direktur">Direktur</option>
+                    <option value="Asisten Direktur">Asisten Direktur</option>
+                    <option value="Supervisor">Supervior</option>
+                    <option value="Staff">Staff</option>
+            </select>
+                </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputState" class="form-label">Status Pegawai</label>
+                  <div class="col-sm-6">
+                  <select name="status_pegawai" id="status_pegawai" class="form-control">
+                <option value="">Pilih Status</option>
+                <option value="Tetap">TETAP</option>
+                    <option value="Kontrak">KONTRAK</option>
+                    <option value="PNS">PNS</option>
+            </select>
+                </div>
+                </div>
+                <div class="form-group">
+                  <label for="deskripsi">Deskripsi</label>
+                  <div class="col-sm-6">
+                  <textarea id="deskripsi" name="deskripsi" class="textarea" 
+                  style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                </div>
+                </div>
+                <div class="form-group">
+                <div class="col-sm-6">
+                  <label for="unit">Unit Kerja</label>
+                  <input type="text" id="unit" name="unit" class="form-control" placeholder="Unit kerja">
+                </div>
+                </div>
+
+                <div class="form-group">
+                <div class="col-sm-2">
+                    <div class="month">
+                        <label for="january">Januari</label>
+                        <input type="number" id="january" name="january" placeholder="Januari">
+                    </div>
+                    <div class="month">
+                        <label for="february">Februari</label>
+                        <input type="number" id="february" name="february" placeholder="Februari">
+                    </div>
+                    <div class="month">
+                        <label for="march">Maret</label>
+                        <input type="number" id="march" name="march" placeholder="Maret">
+                    </div>
+                    <div class="month">
+                        <label for="april">April</label>
+                        <input type="number" id="april" name="april" placeholder="April">
+                    </div>
+                    <div class="month">
+                        <label for="may">Mei</label>
+                        <input type="number" id="may" name="may" placeholder="Mei">
+                    </div>
+                    <div class="month">
+                        <label for="june">Juni</label>
+                        <input type="number" id="june" name="june" placeholder="Juni">
+                    </div>
+                    <div class="month">
+                        <label for="july">Juli</label>
+                        <input type="number" id="july" name="july" placeholder="Juli">
+                    </div>
+                    <div class="month">
+                        <label for="august">Agustus</label>
+                        <input type="number" id="august" name="august" placeholder="Agustus">
+                    </div>
+                    <div class="month">
+                        <label for="september">September</label>
+                        <input type="number" id="september" name="september" placeholder="September">
+                    </div>
+                    <div class="month">
+                        <label for="october">Oktober</label>
+                        <input type="number" id="october" name="october" placeholder="Oktober">
+                    </div>
+                    <div class="month">
+                        <label for="november">November</label>
+                        <input type="number" id="november" name="november" placeholder="November">
+                    </div>
+                    <div class="month">
+                        <label for="december">Desember</label>
+                        <input type="number" id="december" name="december" placeholder="Desember">
+                    </div>
+                </div>
+                <!-- BUTTON -->
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary btn-md" id="submitButton"3> Simpan</button>
+                  <button type="reset" class="btn btn-danger btn-md" id="closePopupButton">Reset</button>
+                </div>
+                
+              </form>
+
+                </div>
+                <!-- /.container-fluid -->
+
+
+                <style>
+
+        .form-group .month {
+            flex: 1 0 21%; /* Mengatur setiap kolom agar memiliki lebar sekitar 21% */
+            margin: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 1024px) {
+            .form-group .month {
+                flex: 1 0 46%; /* Pada ukuran layar sedang, setiap kolom memiliki lebar sekitar 46% */
+                display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-group .month {
+                flex: 1 0 48%; /* Pada ukuran layar kecil, setiap kolom memiliki lebar sekitar 48% */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .form-group .month {
+                flex: 1 0 100%; /* Pada ukuran layar sangat kecil, setiap kolom memiliki lebar 100% */
+            }
+        }
+                </style>
+--------------------------------
+
+
+<section class="content">
+<div class="container-fluid">
+        <div class="row">
+          <div class="col-12 col-xl-12 col-xl-12">
+          <div class="card">
+              <div class="card-header">
+                <a href="<?= base_url('baru/tambahbaru') ?>" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Tambah Data</a>
+                <a href="<?= base_url('baru/printbaru') ?>" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> Print Data</a>
+                <h3 class="card-title"></h3>
+              <!-- /.card-header -->
+              <div class="card-body" style="overflow-x:auto;">
+                <table id="example1" class="table table-bordered">
+                  <thead>
+                  <tr class="text-center">
+                    <th>No</th>
+                    <th>Tanggal Pengajuan</th>
+                    <th>Periode Awal</th>
+                    <th>Periode Akhir</th>
+                    <th>Status Pegawai</th>
+                    <th>Posisi Pegawai</th>
+                    <th>Deskripsi</th>
+                    <th>Jumlah Pegawai</th>
+                    <th style="width: 8%">Aksi</th>
+                  </tr>
+                  </thead>
+                  <?php $no = 1;
+                  foreach($baru as $br) : ?>
+                  <tbody>
+                  <tr class="text-center">
+                    <td><?= $no++ ?></td>
+                    <td><?= $br->tanggal_pengajuan ?></td>
+                    <td><?= $br->awal_periode ?></td>
+                    <td><?= $br->akhir_periode ?></td>
+                    <td><?= $br->posisi_jabatan ?></td>
+                    <td><?= $br->status_pegawai ?></td>
+                    <td><?= $br->deskripsi ?></td>
+                    <td><?= $br->jumlah ?></td>
+                    <td>
+                      <button data-toggle="modal" data-target="#edit<?= $br->id_baru ?>" class="btn btn-outline-warning btn-xs"><i class="fas fa-edit"></i></button>
+                      <a href="<?= base_url('baru/delete/' . $br->id_baru) ?>" class="btn btn-outline-success btn-xs" onclick="return confirm('Apakah anda yakin menghapus data ini?')"><i class="fas fa-trash"></i></a>                    
+                    </td>
+                  </tr>
+                  </tbody>
+                  <?php endforeach ?>
+                  </div></div></div> 
+                </table>
+              </div>
+      </div>
+          </div></div></div>
+
+<!-- Modal edit -->
+<?php foreach($baru as $br) { ?>
+<div class="modal fade" id="edit<?= $br->id_baru ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Pegawai Baru</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+        <form action="<?= base_url('baru/edit/' . $br->id_baru) ?>" method="POST">
+                  <div class="form-group">
+                  <label for="tanggalpengajuan">Tanggal Pengajuan</label>
+                  <div class="col-sm-12">
+                  <input type="date" name="tanggal_pengajuan" class="form-control" value="<?= $br->tanggal_pengajuan ?>">
+                  <?= form_error('tanggal_pengajuan', '<div class="text-small text-danger">'.'</div>'); ?>                
+                </div>
+                </div>
+                <div class="form-group">
+                  <label for="periodeAwal">Periode Awal</label>
+                  <div class="col-sm-12">
+                  <input type="date" name="awal_periode" class="form-control" value="<?= $br->awal_periode ?>">
+                  <?= form_error('awal_periode', '<div class="text-small text-danger">'.'</div>'); ?>                
+                </div>
+                </div>
+                <div class="form-group">
+                  <label for="periodeAkhir">Periode Akhir</label>
+                  <div class="col-sm-12">
+                  <input type="date" name="akhir_periode" class="form-control" value="<?= $br->akhir_periode ?>">
+                  <?= form_error('akhir_periode', '<div class="text-small text-danger">'.'</div>'); ?>  
+                </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputState" class="form-label">Posisi Jabatan</label>
+                  <div class="col-sm-12">
+                  <select id="inputState" name="posisi_jabatan" class="form-control" value="<?= $br->posisi_jabatan ?>">
+                    <option value="Staff Perkantoran">Staff Perkantoran</option>
+                    <option value="Staff Administrasi">Staff Administrasi</option>
+                    <option value="Staff Sekrektasis">Staff Sekrektasis</option>
+                    <option value="Staff Bendahara">Staff Bendahara</option>
+                  </select>
+                  <?= form_error('posisi_jabatan', '<div class="text-small text-danger">'.'</div>'); ?>  
+                </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputState" class="form-label">Status Pegawai</label>
+                  <div class="col-sm-12">
+                  <select id="inputState" name="status_pegawai" class="form-control" value="<?= $br->status_pegawai ?>">
+                    <option value="Karyawawan Tetap">Karyawan Tetap</option>
+                    <option value="Karyawan Kontrak">Karyawan Kontrak</option>
+                    <option value="NON PNS">NON PNS</option>
+                    <option value="PNS">PNS</option>
+                  </select>
+                  <?= form_error('status_pegawai', '<div class="text-small text-danger">'.'</div>'); ?>  
+                </div>
+                </div>
+                <div class="form-group">
+                  <label for="deskripsi">Deskripsi</label>
+                  <div class="col-sm-12">
+                  <textarea id="deskripsi" name="deskripsi" class="form-control"><?= $br->deskripsi ?></textarea>
+                  <?= form_error('deskripsi', '<div class="text-small text-danger">'.'</div>'); ?>  
+                </div>
+                </div>
+                <div class="form-group">
+                <div class="col-sm-12">
+                  <label for="jumlah">Masukkan Jumlah</label>
+                  <input type="number" id="jumlah" name="jumlah" class="form-control" value="<?= $br->jumlah ?>">
+                  <?= form_error('jumlah', '<div class="text-small text-danger">'.'</div>'); ?>  
+                </div>
+                </div>
+                <div class="modal-footer">
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary btn-md"> Simpan</button>
+                  <!-- <button type="reset" class="btn btn-secondary btn-md"> Kembali</button> -->
+                </div>
+                </div>
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+</section>
+<?php } ?>
+
+
+
+
+-----------------------------------
+
+<div class="container-fluid">
+<h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
+
+        <div class="row">
+          <div class="col-12 col-xl-12 col-xl-12">
+          <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Tabel Pengajuan </h3>
+              <!-- /.card-header -->
+              </div>
+              <br/>
+              <div class="col-12 col-md-4 col-xl-12">
+                  <button type="button" class="btn btn-outline-danger" onclick="exportToPDF()"><i class="fas fa-file-pdf"></i></button>
+                 <button type="button" class="btn btn-outline-success" onclick="exportToExcel()"><i class="fas fa-file-excel"></i></button>
+            </div>
+            <br/>
+       
+            <div class="col-4 col-sm-4 col-md-4">
+            <div class="info-box">
+              <span class="info-box-icon bg-light elevation-1"><i class="far fa-calendar-alt"></i></span>
+              <div class="info-box-content">
+                <span class="info-box-text">Pilih Tanggal Periode </span>
+                <input class="info-box-number" type="month" id="birthday" name="birthday">
+                      <style>
+                        label {
+                        /* margin-bottom: 1px; */
+                        display: block;
+                      }
+                      input[type="month"] {
+                      border: solid transparent; /* Atur border menjadi transparan */
+                       padding: 3px;
+                       border-radius: 5px; /* Tambahkan border-radius untuk sudut yang lebih lembut */
+                       }
+                      </style>
+                            </div>
+            </div>
+            </div>
+            <br/>
+                      <style>
+                        label {
+                        margin-bottom: 10px;
+                        display: block;
+                      }
+                      input[type="date"] {
+                       border: 1px solid; /* Atur border menjadi transparan */
+                       padding: 8px;
+                       border-radius: 3px; /* Tambahkan border-radius untuk sudut yang lebih lembut */
+                       margin-right: 10px;
+                       margin-left: 10px;
+                      }
+                      </style>
+                      <br/>
+                      <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                   
+                                    <tr class="text-center">
+                                            <th>Id</th>
+                                            <th>Tanggal Pengajuan</th>
+                                            <th>Posisi Pegawai</th>
+                                            <th>Status Pegawai</th>
+                                            <th>Periode Awal</th>
+                                            <th>Periode Akhir</th>
+                                            <th>Tipe Pengajuan</th>
+                                            <th>Status</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                
+                                    <tbody>
+                                    <tr class="text-center">
+                                        <th scope="row"><a href="#">#2457</a></th>
+                                            <td>2011/04/25</td>
+                                            <td>Staff Administrasi</td>
+                                            <td> NON PNS</td>
+                                            <td>2022/05/16</td>
+                                            <td>2024/04/25</td>
+                                            <td>Penganti</td>
+                                            <td><span class="badge bg-warning">Proses</span></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr class="text-center">
+                                        <th scope="row"><a href="#">#2457</a></th>
+                                            <td>2011/04/25</td>
+                                            <td>Staff Bendahara</td>
+                                            <td>PNS</td>
+                                            <td>2022/05/16</td>
+                                            <td>2024/04/25</td>
+                                            <td>Penganti</td>
+                                            <td><span class="badge bg-danger">Ditolak</span></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr class="text-center">
+                                        <th scope="row"><a href="#">#2457</a></th>
+                                            <td>2011/04/25</td>
+                                            <td>Staff Administrasi</td>
+                                            <td>PNS</td>
+                                            <td>2022/05/16</td>
+                                            <td>2024/04/25</td>
+                                            <td>Baru</td>
+                                            <td><span class="badge bg-success">Disetujui</span></td>
+                                        </tr>
+                                        <tr class="text-center">
+                                        <th scope="row"><a href="#">#2457</a></th>
+                                            <td>2011/04/25</td>
+                                            <td>Staff Administrasi</td>
+                                            <td>Kontrak</td>
+                                            <td>2022/05/16</td>
+                                            <td>2024/04/25</td>
+                                            <td>Baru</td>
+                                            <td><span class="badge bg-success">Disetujui</span></td>
+                                        </tr>
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
+
+          </div></div>
+                         
+
+                         ---------------------------------------
+
+                           <div class="form-group row">
+                        <label for="email" class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                        <input type="email" class="form-control" id="email" name="email" value="<?= $user['email']; ?>" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="name" class="col-sm-2 col-form-label">Nama Pegawai</label>
+                        <div class="col-sm-10">
+                        <input type="text" class="form-control" id="name" name="name" value="<?= $user['name']; ?>">
+                        <?= form_error ('name', '<small class="text-danger pl-3">','</small>'); ?>   
+                    </div>
+                    </div>
+                    <div class="form-group row col-lg-8">
+                        <div class="col-sm-2"> Foto </div>
+                        <div class="col-sm-10">
+                          <div class="row">
+                           <div class="col-sm-3">
+                            <img src="<?= base_url('assets/img/profile/') . $user ['image']; ?>" class="img-thumbnail">
+                           </div>
+                             <div class="col-sm-9">
+                              <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="image" name="image">
+                                <label class="custom-file-label" for="image">Pilih File</label>
+                                </div>
+                             </div>
+                        </div>
+                    </div>
+                </div>
